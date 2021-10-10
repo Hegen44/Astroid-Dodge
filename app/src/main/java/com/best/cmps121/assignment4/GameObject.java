@@ -1,22 +1,26 @@
+// GameObject.java : This file contains the abstract class gameObject.
+//
 package com.best.cmps121.assignment4;
 
 import android.graphics.Rect;
 /**
- * Background music "Trial and Error" by PlayOnLoop.com
- * Licensed under Creative Commons By Attribution 4.0
- *
- * Code written based on paymon wang-lotfi's code in the youtube
- * video series "How to make a 2D game for Android",
- * his youtube channel can be find at https://www.youtube.com/channel/UCKkABMS8IVJlu0G4ipPyZaA
+ *  An object of class GameObject. This is a fundamental class
+ *  that represent all controllable or movable objects in the game.
  */
 public abstract class GameObject {
-    protected int x;
-    protected int y;
-    protected int dy;
-    protected int dx;
+    protected int x;    // x axis position
+    protected int y;    // y axis position
+    protected int dy;   // x axis speed
+    protected int dx;   // y axis speed
     protected int width;
     protected int height;
-
+	
+	/**
+   *  These three method is used to set the position of the gameObject
+   *  @param x This is the paramter to set the x axis
+   *  @param y This is the paramter to set the y axis
+   *  @param pos This is the paramter that contain the position of both x and y
+   */
     public void setX(int x)
     {
         this.x = x;
@@ -25,6 +29,14 @@ public abstract class GameObject {
     {
         this.y = y;
     }
+    public void setPosition(Vector2 pos){
+        this.x = pos.x;
+        this.y = pos.y;
+    }
+	/**
+   *  These three method is used to get the position of the gameObject
+   *  @return int the position of game object's x or y axis
+   */
     public int getX()
     {
         return x;
@@ -33,6 +45,10 @@ public abstract class GameObject {
     {
         return y;
     }
+   /**
+   *  These tow method is used to get the size of the game object
+   *  @return int the height or width of the game object
+   */
     public int getHeight()
     {
         return height;
@@ -42,22 +58,21 @@ public abstract class GameObject {
         return width;
     }
 
-    // collision box for astroid
-    public Rect getastRect()
-    {
-        return new Rect(x+ width*17/100, y +height* 17/100 , x+width*67/100, y+width*67/100);
+    /**
+   *  This method is used to get the collision box of the object
+   *  @return Rect This returns the collison box represent by a rect struct
+   */
+    protected Rect getRect(){
+        return new Rect(x, y, x+width, y+width);
     }
-    // collision box for player
-    public Rect getRectplayer1()
-    {return new Rect(x+ width*9/25,	y +height*1/20,
-            x+ width*9/25 + width*27/100, y +height*1/20 +height*7/50);}
-    public Rect getRectplayer2()
-    {return new Rect(x+ width*23/100, y +height*19/100,
-            x+ width*23/100+ width*53/100, y +height*19/100 +height*1/8);}
-    public Rect getRectplayer3()
-    {return new Rect(x+  width*11/100, y +height*8/25,
-            x+  width*11/100 + width*39/50, y +height*8/25 +height*19/100);}
-    public Rect getRectplayer4()
-    {return new Rect(x+ width*11/100, y +height*51/100,
-            x+ width*11/100 + width*39/50, y +height*51/100 +height*43/500);}
+
+   /**
+   *  This method is used to check if this gameObject collide with the paramter object
+   *  @param b This is the gameObject to check against
+   *  @return Rect This returns the collison box represent by a rect struct
+   */
+
+    public boolean isCollided(gameObject b){
+        return Rect.intersects(getRect(),b.getRect());
+    }
 }

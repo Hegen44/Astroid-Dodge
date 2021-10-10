@@ -1,3 +1,17 @@
+// GamePanel.java : This file contains the main game panel of the game. 
+//
+
+/**
+ * Background music "Trial and Error" by PlayOnLoop.com
+ * Licensed under Creative Commons By Attribution 4.0
+ *
+ * Code written based on the compress view code professor build on class
+ * and paymon wang-lotfi's code in the youtube video series "How to make a 2D game for Android",
+ * his youtube channel can be find at https://www.youtube.com/channel/UCKkABMS8IVJlu0G4ipPyZaA
+ *
+ * @author  H.C. Lo
+ */
+
 package com.best.cmps121.assignment4;
 
 import android.content.Context;
@@ -19,13 +33,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * Background music "Trial and Error" by PlayOnLoop.com
- * Licensed under Creative Commons By Attribution 4.0
- *
- * Code written based on paymon wang-lotfi's code in the youtube
- * video series "How to make a 2D game for Android",
- * his youtube channel can be find at https://www.youtube.com/channel/UCKkABMS8IVJlu0G4ipPyZaA
- *
+ * The game panel hold, run, and update all game logic 
  */
 public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
 {
@@ -108,7 +116,12 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
         thread.start();
 
     }
-    // touch to start the game
+
+   /**
+   * This method is used to checks if the player touch the screen to start the game
+   *  @param event the motion input event from the player
+   *  @return bool this return a boolean represtent if the player has touched the screen
+   */
     @Override
     public boolean onTouchEvent(MotionEvent event)
     {
@@ -130,6 +143,12 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
         }
         return super.onTouchEvent(event);
     }
+
+   /**
+   *  The main update of the game,
+   *  it update every object in the game.
+   *  Update is called each frame.
+   */
 
     public void update()
     {
@@ -167,7 +186,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
                     break;
                 }
             }
-        } else{
+        } else{ // if the game is not running yet or no longer running
             // reset position for new game
             Dynamics.resetP();
             player.resetDX();
@@ -190,19 +209,29 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
         }
     }
 
-    // function handeling collision
-    public boolean collision(GameObject a, GameObject b)
+   /**
+   * This method handle collision of gameobject with the player
+   *  @param obj this is the object check against the Player
+   *  @param player this is the player game object
+   */
+    public boolean collision(GameObject obj, GameObject player)
     {
-        if(Rect.intersects(a.getastRect(), b.getRectplayer1())||
-                Rect.intersects(a.getastRect(), b.getRectplayer2()) ||
-                Rect.intersects(a.getastRect(), b.getRectplayer3()) ||
-                Rect.intersects(a.getastRect(), b.getRectplayer4()))
-        {
-            return true;
-        }
-        return false;
+        //if(Rect.intersects(obj.getastRect(), player.getRectplayer1())||
+        //        Rect.intersects(obj.getastRect(), player.getRectplayer2()) ||
+        //        Rect.intersects(obj.getastRect(), player.getRectplayer3()) ||
+        //        Rect.intersects(obj.getastRect(), player.getRectplayer4()))
+        //{
+        //    return true;
+        //}
+        //return false;
+
+        return player.isCollided(obj);
     }
 
+   /**
+   * This method is render every object on screen
+   *  @param canvas This is the canvas the game is rendering on
+   */
     @Override
     public void draw(Canvas canvas)
     {
@@ -229,7 +258,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
         }
     }
 
-    // new game, reset everything
+   /**
+   * This method resest the whole game for a new game
+   */
     public void newGame()
     {
         Dynamics.resetV();
@@ -248,7 +279,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback
                 - ((playerimage.getWidth())/10) / 2);
         newGameCreated = true;
     }
-    // draw title and score
+   /**
+   * This method is render the UI text
+   *  @param canvas This is the canvas the game is rendering on
+   */
     public void drawText(Canvas canvas)
     {
         Paint paint = new Paint();

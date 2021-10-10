@@ -1,3 +1,6 @@
+// Game.java : This file contains the class Game.
+//
+
 package com.best.cmps121.assignment4;
 
 import android.app.Activity;
@@ -11,13 +14,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 /**
- * Background music "Trial and Error" by PlayOnLoop.com
- * Licensed under Creative Commons By Attribution 4.0
- *
- * Code written based on the compress view code professor build on class
- * and paymon wang-lotfi's code in the youtube video series "How to make a 2D game for Android",
- * his youtube channel can be find at https://www.youtube.com/channel/UCKkABMS8IVJlu0G4ipPyZaA
- *
+ *  An object of class Game represent game event and activity. 
  */
 
 public class Game extends Activity implements SensorEventListener{
@@ -47,17 +44,26 @@ public class Game extends Activity implements SensorEventListener{
 
     }
 
+   /**
+   *  this method is used to pause most game Activity
+   */
     @Override
     protected void onPause() {
+        // stop the music
         backgroundMusic.stop();
+        // stop and detach the accelerometer sensor.
         SensorManager sm = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         sm.unregisterListener(this);
         super.onPause();
     }
 
+   /**
+   *  this method is used to resume activity that is paused
+   */
     @Override
     protected void onResume() {
         super.onResume();
+        // resume the music
         if (backgroundMusic != null && !backgroundMusic.isPlaying()) {
             backgroundMusic = MediaPlayer.create(Game.this, R.raw.bg);
             backgroundMusic.setLooping(true);
@@ -71,6 +77,9 @@ public class Game extends Activity implements SensorEventListener{
         sm.registerListener(this, direction, SensorManager.SENSOR_DELAY_GAME);
     }
 
+   /**
+   *  this method is called when the phone is tilted 
+   */
     public void onSensorChanged(SensorEvent event) {
 
         double x = event.values[0];

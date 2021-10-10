@@ -1,25 +1,36 @@
+// MainThreads.java : This file contains the main thread of the game. 
+//
+
+/**
+ * Background music "Trial and Error" by PlayOnLoop.com
+ * Licensed under Creative Commons By Attribution 4.0
+ *
+ * Code written based on the compress view code professor build on class
+ * and paymon wang-lotfi's code in the youtube video series "How to make a 2D game for Android",
+ * his youtube channel can be find at https://www.youtube.com/channel/UCKkABMS8IVJlu0G4ipPyZaA
+ *
+ * @author  H.C. Lo
+ */
+
 package com.best.cmps121.assignment4;
 
 import android.graphics.Canvas;
 import android.view.SurfaceHolder;
 /**
- * Background music "Trial and Error" by PlayOnLoop.com
- * Licensed under Creative Commons By Attribution 4.0
- *
- * Code written based on paymon wang-lotfi's code in the youtube
- * video series "How to make a 2D game for Android",
- * his youtube channel can be find at https://www.youtube.com/channel/UCKkABMS8IVJlu0G4ipPyZaA
- *
+ *  This class MainThread represent the main thread the game is running on
  */
 public class MainThread extends Thread
 {
-    private int FPS = 30;
+    private int FPS = 30; // locked frame
     private double averageFPS;
     private SurfaceHolder surfaceHolder;
     private GamePanel gamePanel;
     private boolean running;
     public static Canvas canvas;
 
+   /**
+   *  constructor
+   */
     public MainThread(SurfaceHolder surfaceHolder, GamePanel gamePanel)
     {
         super();
@@ -43,6 +54,7 @@ public class MainThread extends Thread
             //try locking the canvas for pixel editing
             try {
                 canvas = this.surfaceHolder.lockCanvas();
+                // update the game
                 synchronized (surfaceHolder) {
                     this.gamePanel.update();
                     this.gamePanel.draw(canvas);

@@ -1,12 +1,16 @@
+// Dynamics.java : This file contains the method for motionn event of the phone. 
+//
+
+/**
+ * Code written based on the compress view code professor build on class
+ */
 package com.best.cmps121.assignment4;
 
 import android.view.animation.AnimationUtils;
-/**
- * Background music "Trial and Error" by PlayOnLoop.com
- * Licensed under Creative Commons By Attribution 4.0
- *
- * Code written based on the compress view code professor build on class
- *
+
+
+ /**
+ *  This class handle motion gestures input from the phone
  */
 public final class Dynamics {
 
@@ -43,6 +47,9 @@ public final class Dynamics {
     private static boolean pos = false;
     private static boolean neg = false;
 
+       /**
+   *  constructor
+   */
     private Dynamics(){
         long now  = AnimationUtils.currentAnimationTimeMillis();
         lastTime = now;

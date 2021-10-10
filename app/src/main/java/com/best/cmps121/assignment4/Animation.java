@@ -1,14 +1,12 @@
+// Animation.java : This file contains the class Animation.
+//
+
 package com.best.cmps121.assignment4;
 
 import android.graphics.Bitmap;
+import android.hardware.SensorManager;
 /**
- * Background music "Trial and Error" by PlayOnLoop.com
- * Licensed under Creative Commons By Attribution 4.0
- *
- * Code written based on paymon wang-lotfi's code in the youtube
- * video series "How to make a 2D game for Android",
- * his youtube channel can be find at https://www.youtube.com/channel/UCKkABMS8IVJlu0G4ipPyZaA
- *
+ *  An object of class Animaiton that handel animating the sprites. 
  */
 public class Animation {
     private Bitmap[] frames;
@@ -40,10 +38,22 @@ public class Animation {
             playedOnce = true;
         }
     }
+   /**
+   *  This method get the actual of the current sprite animation
+   *  @return Bitmap This return the current image of the animation
+   */
     public Bitmap getImage(){
         return frames[currentFrame];
     }
+   /**
+   *  This method get the actual of the current frame number
+   *  @return int this return the current number of frame of the animation
+   */
     public int getFrame(){return currentFrame;}
+       /**
+   *  This method to check this animaiton should only play once or if it should loop
+   *  @return bool reteurn if the animtion should loop or not
+   */
     public boolean playedOnce(){return playedOnce;}
 
 }
